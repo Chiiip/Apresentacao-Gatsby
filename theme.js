@@ -7,9 +7,8 @@ export default {
         style: okaidia,
     },
     colors: {
-        ...theme.colors,
-        text: 'palevioletred',
-        background: 'papayawhip',
-        link: 'lightblue'
+        text: 'rgb(86, 156, 214)',
+        background: 'rgb(30, 30, 30)',
+        link: 'lightblue',
     },
 };

@@ -1,401 +1,191 @@
 import { CodeSurfer } from "mdx-deck-code-surfer";
-import { Head } from "mdx-deck";
+import { Head, Notes, Appear } from "mdx-deck";
 
 export { default as theme } from "./theme";
 
 <Head>
-    <title>Novidades do React</title>
+    <title>Gatsby e a Web</title>
 </Head>
 
-# React
+<span style={{fontSize:"2.5em", fontWeight: 'bold'}}>Criando páginas velozes para a web com <span style={{color: "#663399"}}>Gatsby</span></span>
 
-## 16.3 - 16.7(alpha)
+## por Pedro Augusto
 
--   Rodrigo Araújo (@dygufa)
--   Thiago Armede (@thiagoarmede)
--   _(bônus)_ Victor Magalhães (@vhfmag)
+<Notes>
+Boa noite, eu me chamo Pedro Augusto, trabalhei por 2 anos no 12º andar numa empresa chamada Solutis, sou desenvolvedor front-end e vim aqui apresentar o Gatsby para vocês.
+Durante o último ano, eu tive a oportunidade de trabalhar com Gatsby no backoffice de uma aplicação React que já está em produção, e aí eu pude aprender sobre o framework e é uma tecnologia com um potencial incrível
+e por isso eu me propus a apresentar sobre ela.
 
----
-
-# Contexto
-
-## (não a API de contexto, contexto mesmo, tipo contextualizar)
+</Notes>
 
 ---
 
-# React 16.0, Fiber, async rendering
+# O que pretendo abordar
+
+
+<Appear>
+    <h3>o que é Gatsby</h3>
+    <h3>casos de uso</h3>
+    <h3>funcionamento</h3>
+</Appear>
+ 
+
+<Notes>
+O que é o Gatsby e como ele funciona, e uma comparação entre um app feito em Gatsby e um feito usando CRA ou outro framework SSR
+casos de uso, vantagens, desvantagens, por quê você deveria usar
+Funcionamento, plugins, estrutura do projeto, e características internas do Gatsby
+</Notes>
 
 ---
 
-<img src={require("file-loader!./assets/stack_reconciliation.png")}/>
-<p style={{ fontSize: "0.6em"}}>(Stack reconciliation — é preciso terminar a atualização antes de retornar para a main thread (crédito: Lin Clark))</p>
+<img style={{height: '30vh'}} src={require("file-loader!./assets/logo gatsby.svg")}/>
+
+SSG + framework React
+
+<Notes>
+O Gatsby é um SSG, sigla em inglês para gerador de sites estáticos, e também um framework React que permite a criação de páginas para
+a web, com o diferencial de o framework te entregar já prontas algumas otimizações que vão deixar o seu website mais rápido.
+Antes de detalhar as features e as coisas presentes no próprio Gatsby que garantem essas vantagens, eu gostaria de primeiro explicar
+como funciona a geração de páginas estáticas do Gatsby e o que essa geração de páginas tem de diferente de uma página feita com
+Create React App e com Next. Perguntar quem conhece ou já trabalhou com Next
+</Notes>
 ---
-<img src={require("file-loader!./assets/fiber_reconciliation.png")}/>
-<p style={{ fontSize: "0.6em"}}>(Fiber reconciliation — as atualizações serão feitas em pedaços (crédito: Lin Clark))</p>
+exemplo prático #1
 ---
-import { TwitterTweetEmbed } from "react-twitter-embed";
+Create React App
 
-<TwitterTweetEmbed tweetId={"909926793536094209"} />
+npm install -g create-react-app
 
-```notes
-Aqui é possível verificar como o circulo de loading no canto superior direito para de ser renderizado enquanto a àrvore de componentes é montada
-```
+npx create-react-app my-app
 
+npm start
 ---
+Gatsby
 
-# React 16.3
+npm install -g gatsby-cli
 
+gatsby new gatsby-site
+
+gatsby develop
 ---
+Next
 
-<CodeSurfer
-  title="Context API"
-  code={require("!raw-loader!./samples/contextApi.jsx")}
-  showNumbers={false}
-  dark={false}
-  steps={[
-    {},
-    { lines: [1], notes: "Cria o contexto" },
-    { range: [3, 13], notes: "Exemplo de componente que fornece contexto" },
-    { range: [8, 10], notes: "Provider" },
-    { range: [15, 23], notes: "Exemplo de componente que consome contexto" },
-    { range: [18, 20], notes: "Consumer" },
-    { range: [25, 31], notes: "Exemplo de uso" },
-    { range: [27, 29], notes: "O consumidor deve estar abaixo de um provider na árvore" },
-  ]}
-/>
+npm init -y
+
+npm install --save react react-dom next
+<Notes>
+- falar o que é e como um crawler funciona
+</Notes>
 ---
-<CodeSurfer
-  title="createRef"
-  code={require("!raw-loader!./samples/createRef.jsx")}
-  showNumbers={false}
-  dark={false}
-  steps={[
-    {},
-    { range: [3, 28], notes: "Até então, para se consumir referências a elementos da DOM ou outros componentes React, usava-se callback refs" },
-    { lines: [19], notes: "Nele, a propriedade ref espera uma função que recebe a referência ou null (quando se desmonta o componente)" },
-    { range: [30, 55], notes: "O createRef é uma nova API que simplifica o acesso a referências" },
-    { lines: [32], notes: "Para usar, se cria um objeto Ref de antemão" },
-    { lines: [46], notes: "O objeto é passado pra propriedade ref" },
-    { range: [36, 38], notes: "E a referência pode ser acessada na propriedade current do objeto Ref" }
-  ]}
-/>
+<div style={{display: 'flex', flexDirection: 'column'}}>
+<img style={{height: '80vh', width: '80vw'}} src={require("file-loader!./assets/CSR.png")}/>
+<h7>por Alex Grigoryan</h7>
+</div>
 ---
-<CodeSurfer
-  title="forwardRef"
-  code={require("!raw-loader!./samples/forwardRef.jsx")}
-  showNumbers={false}
-  dark={false}
-  steps={[
-    {},
-    { lines: [3], notes: "forwardRef recebe um componente funcional e passa para ele um `ref` como segundo argumento"},
-    { lines: [4], notes: "Esse ref pode ser passado para outros componentes, React ou nativos"},
-    { range: [21, 27], notes: "O componente pode ser usado normalmente" },
-    { lines: [4], notes: "Mas o conteúdo do `ref` será o <input/>, já que ele recebeu o `ref` de forwardRef" },
-    { lines: [13], notes: "O que permite que se dê foco ao <input/> 🎉" },
-  ]}
-/>
+<div style={{display: 'flex', flexDirection: 'column'}}>
+<img style={{height: '80vh', width: '80vw'}} src={require("file-loader!./assets/SSR.png")}/>
+por Alex Grigoryan
+</div>
 ---
-# Novos lifecycles
-🙅 UNSAFE_componentWillReceiveProps 🙅  
-🙅 UNSAFE_componentWillUpdate  🙅  
-🙅 UNSAFE_componentWillMount  🙅  
-😍 getDerivedStateFromProps  😍  
-😍 getSnapshotBeforeUpdate  😍
+"Performance isn't optional, it's built-in"
 
-```notes
-For example, with the current API, it is too easy to block the initial render with non-essential logic. In part this is because there are too many ways to accomplish a given task, and it can be unclear which is best. We’ve observed that the interrupting behavior of error handling is often not taken into consideration and can result in memory leaks (something that will also impact the upcoming async rendering mode). The current class component API also complicates other efforts, like our work on prototyping a React compiler.
-
-Many of these issues are exacerbated by a subset of the component lifecycles (componentWillMount, componentWillReceiveProps, and componentWillUpdate). These also happen to be the lifecycles that cause the most confusion within the React community. For these reasons, we are going to deprecate those methods in favor of better alternatives.
-
-We are adding the following lifecycle aliases: UNSAFE_componentWillMount, UNSAFE_componentWillReceiveProps, and UNSAFE_componentWillUpdate. (Both the old lifecycle names and the new aliases will be supported.)
-
-We are introducing two new lifecycles, static getDerivedStateFromProps and getSnapshotBeforeUpdate.
-
-getDerivedStateFromProps is being added as a safer alternative to the legacy componentWillReceiveProps. (Note that in most cases you don’t need either of them.)
-getSnapshotBeforeUpdate is being added to support safely reading properties from e.g. the DOM before updates are made.
-```
-
+<Notes>
+Kyle Matthews, 2017, na ReactNext
+</Notes>
 ---
-
-<CodeSurfer
-    title="getDerivedStateFromProps"
-    code={require("!raw-loader!./samples/getDerivedStateFromProps.jsx")}
-    showNumbers={false}
-    dark={false}
-    steps={[{}, { range: [7, 15] }]}
-/>
-
-```notes
-Deriving state leads to verbose code and makes your components difficult to think about.
-Make sure you’re familiar with simpler alternatives:
-
-If you need to perform a side effect (for example, data fetching or an animation) in response to a change in props, use componentDidUpdate lifecycle instead.
-
-If you want to re-compute some data only when a prop changes, use a memoization helper instead.
-
-If you want to “reset” some state when a prop changes, consider either making a component fully controlled or fully uncontrolled with a key instead.
-```
-
+<Appear>
+    <h3>roda em um servidor de estáticos</h3>
+    <h3>geração de HTML</h3>
+    <h3>perfeito para conteúdo estático (preferencialmente)</h3>
+</Appear>
 ---
-
-<CodeSurfer
-    title="getSnapshotBeforeUpdate"
-    code={require("!raw-loader!./samples/getSnapshotBeforeUpdate.jsx")}
-    showNumbers={false}
-    dark={false}
-    steps={[{}, { range: [7, 13] }, { range: [15, 20] }]}
-/>
-
-```notes
-Deriving state leads to verbose code and makes your components difficult to think about.
-Make sure you’re familiar with simpler alternatives:
-
-If you need to perform a side effect (for example, data fetching or an animation) in response to a change in props, use componentDidUpdate lifecycle instead.
-
-If you want to re-compute some data only when a prop changes, use a memoization helper instead.
-
-If you want to “reset” some state when a prop changes, consider either making a component fully controlled or fully uncontrolled with a key instead.
-```
-
+<Appear>
+    <h3>otimização de imagens</h3>
+    <h3>code-splitting</h3>
+    <h3>pre-load de conteúdo</h3>
+    <h3>integração com CMS</h3>
+    <h3>comunidade crescente</h3>
+</Appear>
 ---
-
-# StrictMode
-
-Componente que não renderiza nada e ativa alertas de uso de features que estão ou serão depreciadas
-
-```js
-const App = () => <StrictMode>{/* resto do app */}</StrictMode>;
-```
-
-```notes
-StrictMode atualmente ajuda com:
-
--   Identificar componentes usando ciclos de vida que serão depreciados
--   Alertar sobre uso de API legada de ref com strings
--   Alertar sobre uso de `findDOMNOde`, que foi depreciado
--   Detectar efeitos colaterais inesperados
--   Detectar uso de API legada de contexto
-```
-
+<img style={{height: '80vh', width: '80vw'}} src={require("file-loader!./assets/state-of-js-2019.png")}/>
+fonte: https://2019.stateofjs.com/overview
+<Notes>
+State of JS 2019, 21k de pessoas
+</Notes>
 ---
-
-# React 16.4
-
+<img style={{height: '80vh', width: '80vw'}} src={require("file-loader!./assets/investimento.png")}/>
+fonte: https://www.gatsbyjs.org/blog/2019-09-26-announcing-gatsby-15m-series-a-funding-round/
+<Notes>
+https://www.gatsbyjs.org/blog/2019-09-26-announcing-gatsby-15m-series-a-funding-round/
+</Notes>
 ---
-
-# Pointer Events
-
-```notes
-Pointer events are DOM events that are fired for a pointing device. They are designed to create a single DOM event model to handle pointing input devices such as a mouse, pen/stylus or touch (such as one or more fingers).
-```
-
+<img style={{height: '100vh', width: '40vw'}} src={require("file-loader!./assets/udemy-report.jpg")}/>
 ---
+[React](https://reactjs.org/)
 
-# "Bugfix" para getDerivedStateFromProps
+[Airbnb](https://airbnb.io/)
 
-```notes
-getDerivedStateFromProps is now called every time a component is rendered, regardless of the cause of the update. Previously, it was only called if the component was re-rendered by its parent, and would not fire as the result of a local setState. This was an oversight in the initial implementation that has now been corrected. The previous behavior was more similar to componentWillReceiveProps, but the improved behavior ensures compatibility with React’s upcoming asynchronous rendering mode.
-```
+[Figma](https://www.figma.com/)
 
+[Free Code Camp](https://guide.freecodecamp.org/)
 ---
-
-# React 16.5
-
+<h3>Gatsby é útil para tudo? </h3>
+<Appear>
+<h1 style={{color: 'coral'}}>Não!</h1>
+</Appear>
+<Notes>
+E aí vem a pergunta: Gatsby é a bala de prata que irá resolver todos os meus problemas e irá funcionar magicamente para qualquer coisa que
+eu faça? Não! Tendo isso em vista, e com base na opinião e experiências de outras pessoas que já usaram, eu trouxe as 3 perguntas que eu acho
+que devem ser feitas antes de se considerar usar Gatsby em uma aplicação React. E elas são:
+</Notes>
 ---
-
-# Profiler
-
-<img src={require("file-loader!./assets/profiler.png")}/>
-
-# React 16.6
-
+SEO é importante?
+ex.: site de um produto, blog
+<Appear>
+<h2>Next ou Gatsby</h2>
+</Appear>
 ---
-
-<CodeSurfer
-  title="React.memo"
-  code={require("!raw-loader!./samples/memo.jsx")}
-  showNumbers={false}
-  dark={false}
-  steps={[
-    { range: [1, 5], notes: "Como é em classes" },
-    { range: [7, 9], notes: "E agora a nova feature para funções..." },
-  ]}
-/>
-```notes
-Class components can bail out from rendering when their input props are the same using PureComponent or shouldComponentUpdate. Now you can do the same with function components by wrapping them in React.memo.
-```
+pretende rodar em servidores estáticos?
+<Appear>
+<h2>CRA ou Gatsby</h2>
+</Appear>
 ---
-<CodeSurfer
-  title="Code-Splitting Suspense"
-  code={require("!raw-loader!./samples/code-splitting-suspense.jsx")}
-  showNumbers={false}
-  dark={false}
-/>
+seu conteúdo é muito dinâmico? ex.: aplicação interna
+<Appear>
+<h2>CRA ou Next</h2>
+</Appear>
+
+<Notes>
+Aqui é bom destacar que apesar das funcionalidades do Gatsby não serem em sua maioria focadas para aplicações dinâmicas, nada impede que
+você use Gatsby no seu site/app que seja muito dinâmico para poder aproveitar. E aí eu falo por experiência própria, pois a única aplicação
+que eu já trabalhei em produção com Gatsby é um backoffice praticamente todo dinâmico, e a decisão de colocar Gatsby no projeto foi somente
+para 1 - ter uma performance melhor no carregamento das telas, 2 - ter a otimização de imagens estáticas usando o Gatsby-image
+</Notes>
 ---
-<CodeSurfer
-  title="ContextType"
-  code={require("!raw-loader!./samples/static-context-type.jsx")}
-  showNumbers={false}
-  dark={false}
-  steps={[
-    {},
-    { lines: [1], notes: "Instância do contexto" },
-    { lines: [4], notes: "Atribuição do contexto" },
-    { lines: [6], notes: "Consultando contexto" },
-  ]}
-/>
-
-```notes
-We’ve heard feedback that adopting the new render prop API can be difficult in class components. So we’ve add a convenience API to consume a context value from within a class component.
-```
-
+<h3>Desvantagens</h3>
+<Appear>
+<h3>não existe build incremental (ainda)</h3>
+<h3>acrescenta uma camada de complexidade ao código do seu projeto</h3>
+<h3>objetos window, localStorage e browser indisponíveis</h3>
+<h3>problemas com sites muito grandes (+50k de páginas)</h3>
+</Appear>
 ---
+exemplo prático #2
 
-# React 16.7 (alpha)
-
+code-splitting e Link
 ---
-
-# Hooks
-
-![Loving Hooks](https://media.giphy.com/media/Hf0tK0lqL3tIc/giphy.gif)
-
+<h3>Bônus</h3>
+<Appear>
+<h3>progressive enhancement</h3>
+<h3>mobile</h3>
+<h3>dispositivos usando dados móveis</h3>
+</Appear>
+<Notes>
+IntersectionObserver e link rel="prefetch"
+</Notes>
 ---
-
-# Os Problemas
-
--   Classes (tem que acabar)
-
--   Reuso de lógica de estado
-
--   Rios de lifecycle methods
-
----
-
-<CodeSurfer
-    title="A Solução"
-    code={require("!raw-loader!./samples/hooks-basic.jsx")}
-    showNumbers={false}
-    dark={false}
-/>
-
----
-
-# Maravilhas extras
-
-😍 Nada vai quebrar 😍
-
-😍 Menos verbosidade (bonus: transpilação) 😍
-
-😍 Facilidade de compartilhar lógica entre componentes 😍
-
----
-
-# Principais Hooks
-
--   useState
--   useEffect
--   useContext
-
----
-
-<CodeSurfer
-    title="useEffect"
-    code={require("!raw-loader!./samples/useEffect.jsx")}
-    showNumbers={false}
-    dark={false}
-    steps={[
-        {},
-        { range: [10, 15], notes: "Inscrição e desinscrição no evento" },
-    ]}
-/>
-
----
-
-<CodeSurfer
-    title="useContext"
-    code={require("!raw-loader!./samples/useContext.jsx")}
-    showNumbers={false}
-    dark={false}
-    steps={[{}, { range: [13, 16], notes: "Consumindo o contexto" }]}
-/>
-
----
-
-# Hooks adicionais
-
--   useReducer
--   useCallback
--   useRef
--   useMemo
--   useImperativeMethods
--   useLayoutEffects
--   useMutationEffects
-
----
-
-# Custom Hooks
-
-## Render props && HOCs vs Hooks
-
----
-
-# Exemplinho
-
-<iframe 
-  src="https://codesandbox.io/embed/yqnpq6yrlx"
-  style={{
-     width: 1200,
-     height: 600,
-     border: 0,
-     borderRadius: 4, 
-     overflow: 'hidden'
-  }}
-  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
----
-
-# Concurrent React
--   Time slicing
--   Suspense
-
----
-
-# Time-slicing
-
--   Usa divisão de trabalho do React Fiber para não bloquear a main thread
--   Dá diferentes prioridades para diferentes atualizações (atualizações envolvendo _input_ são priorizadas)
--   Bônus: React vai usar propriedade `hidden` do HTML5 para despriorizar renderização de parte da árvore
-
----
-
-# Time-slicing
-
-## Demo
-
 <iframe
-    src="https://timeslicing-unstable-demo.surge.sh/"
-    width="800"
-    height="520"
-/>
-
----
-
-# Suspense
-
-## API para lidar facilmente com chamadas assíncronas
-
--   Suspende renderização se dados não estão disponíveis em cache
--   Exibe fallback depois de timeout
--   Continua renderização quando chamadas assíncronas são concluídas
-
----
-
-# Suspense
-
-## Demo
-
-<iframe
-    src="https://codesandbox.io/embed/w0n9ok3mqw?hidenavigation=1&view=preview"
+    src="https://codesandbox.io/embed/l70jj9p58m?fontsize=14"
     width="800"
     height="500"
     style={{
@@ -405,11 +195,51 @@ We’ve heard feedback that adopting the new render prop API can be difficult in
     }}
     sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
 />
+---
+exemplo prático #3
+
+gatsby-image, integração com CMS
+<Notes>
+- falar sobre o Medium
+- falar sobre a Responsividade
+- falar sobre como só carrega quando está no viewport
+</Notes>
+---
+
+# Perguntas
 
 ---
 
-# Cabou
+# Obrigado!
 
-![Cabou](https://media.giphy.com/media/tjMXCTZDsyFs4/giphy.gif)
+<img style={{height: '50vh', width: '40vw'}} src={require("file-loader!./assets/gatsby-gif.gif")}/>
 
+---
+fontes
+<div style={{fontSize: '13px'}}>
+
+https://gatsbyjs.org
+
+https://www.youtube.com/watch?v=GuvAMcsoreI
+
+https://www.youtube.com/watch?v=VoscwJ6MGsU
+
+https://www.youtube.com/watch?v=xC4Yq_mXvPM
+
+https://www.youtube.com/watch?v=Gtd-Ht-D0sg
+
+https://www.udemy.com/course/gatsby-crie-um-site-pwa-com-react-graphql-e-netlify-cms/
+
+https://dev.to/jameesy/gatsby-vs-next-js-what-why-and-when-4al5
+
+https://blog.logrocket.com/is-gatsby-really-that-great-e7b19c4c1c05/
+
+https://www.gatsbyjs.org/tutorial/blog-netlify-cms-tutorial/
+
+https://medium.com/walmartlabs/the-benefits-of-server-side-rendering-over-client-side-rendering-5d07ff2cefe8
+
+https://segredo.dev/o-que-e-o-gatsbyjs/
+
+https://medium.com/techbloghotmart/o-que-%C3%A9-server-side-rendering-e-como-usar-na-pr%C3%A1tica-a840d76a6dca
+</div>
 
